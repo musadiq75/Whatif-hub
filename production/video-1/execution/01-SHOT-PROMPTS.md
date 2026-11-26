@@ -1,6 +1,8 @@
-# VIDEO 1 — ALL 43 SHOT PROMPTS (production-ready)
+# VIDEO 1 — ALL SHOT PROMPTS (production-ready) — rev 2
 
-**How to use:** generate the KEYFRAME image first (prompt = Keyframe block), then run image-to-video with the Motion prompt. Every prompt already contains the full continuity payload. Durations are pacing targets; re-time against the real narration audio (see runbook step 2).
+**How to use:** generate the KEYFRAME image first (prompt = Keyframe block), then run image-to-video with the Motion prompt. Every prompt already contains the full continuity payload. Durations are MINIMUM pacing targets; actual durations come from real WhisperX word timestamps (runbook Step 2 + `07-PRE-RENDER-CHECKLIST.md` cue table).
+
+**Corrected counts (rev 2):** 43 shot rows → **61 render units**. Multi-part shots produce lettered clip files: 1-7 → `01-07a/b/c.mp4`, 2-6 → `02-06a/b.mp4`, 5-5 → `05-05a/b/c.mp4`, 6-1 → `06-01a/b/c/d.mp4`. Title card (01-01) and end card (06-08) are FFmpeg drawtext, not generated clips. The authoritative manifest is `07-PRE-RENDER-CHECKLIST.md`.
 
 **STYLE CORE (baked into every prompt below):** cinematic photorealism with subtle 3D-render polish, 35mm anamorphic character, 2.39:1 letterbox, teal-shifted shadows, warm sodium-amber highlights, gentle film grain, volumetric light, shallow depth of field, no text, no logos, protagonist's face never visible.
 
@@ -17,9 +19,8 @@
 
 ## SCENE 1 — COLD OPEN [0:00] (shots 1-1 → 1-8)
 
-**1-1 · Title card · 6s · transition: cut**
-- Keyframe: black stage with fine film grain, vignette; elegant thin serif title "WHAT IF GRAVITY DOUBLED AT MIDNIGHT?" centered, faint amber glow
-- Motion: slow 3% push-in; title fades up over 1.5s, holds, fades out; faint dust motes drifting
+**1-1 · Title card · 6s · transition: cut — FFmpeg drawtext, no generated clip**
+- Render: black stage, fine film grain; elegant thin serif title "WHAT IF GRAVITY DOUBLED AT MIDNIGHT?" centered, faint amber glow; slow 3% push-in; title fades up 1.5s, holds, fades out
 - Narration cue: (before narration starts)
 
 **1-2 · Street at midnight · 7s · cut**
@@ -47,10 +48,11 @@
 - Motion: slow pan up from bed to fan; fan blades subtly droop; motes accelerate downward
 - Cue: "You haven't gained a single gram…"
 
-**1-7 · World montage · 9s (3×3s) · cut**
-- Keyframe A: hillside rocks micro-settling, dust puff, moonlight; Keyframe B: close on old bridge cable (BRIDGE-OLD) twanging taut, rust flecks dropping; Keyframe C: roosting SPARROW, grip tightening on branch, feathers compressing
-- Motion: A rocks shift and settle; B cable vibrates then stills; C bird's feet clamp, breast heaves; hard cuts between
-- Cue: "…for every rock and bridge and bird on Earth."
+**1-7 · World montage · 3 render units (01-07a/b/c), 3s each · cut**
+- Keyframe A (01-07a): hillside rocks micro-settling, dust puff, moonlight — Motion: rocks shift and settle
+- Keyframe B (01-07b): close on old bridge cable (BRIDGE-OLD) twanging taut, rust flecks dropping — Motion: cable vibrates then stills
+- Keyframe C (01-07c): roosting SPARROW, grip tightening on branch, feathers compressing — Motion: bird's feet clamp, breast heaves
+- Cue: "…for every rock and bridge and bird on Earth." (units cut on "rock" / "bridge" / "bird")
 
 **1-8 · POV ceiling · 7s · cut → SCENE 2**
 - Keyframe: BEDROOM continuity from MAN's POV lying down: ceiling fan centered, moonlit ceiling, slight breathing frame-bob
@@ -72,7 +74,7 @@
 - Cue: "…your heart has to push blood uphill against double the pull."
 
 **2-3 · Ankle swelling CU · 6s · cut**
-- Keyframe: close-up of a man's ankles over sock elastic, skin visibly puffing, dark jeans not yet (sleep shorts), morning light, shallow DOF
+- Keyframe: close-up of a man's ankles over sock elastic, skin visibly puffing, sleep shorts (Scene 2 wardrobe), morning light, shallow DOF
 - Motion: ankles swell slowly over the shot; breathing faster (off-mic)
 - Cue: "By mid-morning it pools in your legs, your ankles swell…"
 
@@ -86,10 +88,10 @@
 - Motion: low-angle wide; he takes the rail and descends one careful step at a time
 - Cue: "The stairs are a mountain."
 
-**2-6 · Hospital + elderly split vignette · 8s (2×4s dissolve) · cut**
-- Keyframe A: hospital room, patient in bed unable to rise, neutral daylight; Keyframe B: elderly man standing with cane in a hallway, cane trembling under him, faceless angle, warm home light
-- Motion: A patient strains and settles back; B the man leans, cane shakes; cross-dissolve between
-- Cue: "And you're one of the lucky ones…"
+**2-6 · Hospital + elderly split vignette · 2 render units (02-06a/b), 4s each · cut**
+- Keyframe A (02-06a): hospital room, patient in bed unable to rise, neutral daylight — Motion: patient strains and settles back
+- Keyframe B (02-06b): elderly man standing with cane in a hallway, cane trembling under him, faceless angle, warm home light — Motion: the man leans, cane shakes
+- Cue: "And you're one of the lucky ones…" / "An elderly parent who walked with a cane no longer can."
 
 **2-7 · Ward corridor · 6s · cut**
 - Keyframe: quiet hospital ward corridor, still, empty, curtain swaying slightly, cool daylight
@@ -97,7 +99,7 @@
 - Cue: "For a small, quiet share of humanity…"
 
 **2-8 · Bedroom shelf + fan · 8s · cut**
-- Keyframe: BEDROOM continuity, loaded wooden bookshelf above dresser, shelf visibly sagging a few degrees, five-blade fan wobbling, moonlight-tone gone — morning light now
+- Keyframe: BEDROOM continuity, loaded wooden bookshelf above dresser, shelf visibly sagging a few degrees, five-blade fan wobbling, morning light now
 - Motion: rack focus shelf → fan; shelf settles slightly lower; fan wobble exaggerated
 - Cue: "Your bedroom, meanwhile, is mostly fine."
 
@@ -248,9 +250,10 @@
 - Motion: locked time-lapse over a generation: towers grow lower, wider, thicker; sky feels heavier
 - Cue: "Architecture gets rebuilt lower, wider, thicker…"
 
-**5-5 · Engineering rewrite · 9s (3×3s) · cut**
-- Keyframe A: elevator cable drum, thickened cable winding; Keyframe B: construction crane boom, beefed-up lattice; Keyframe C: aircraft wing assembly, thicker spar
-- Motion: quick-cut montage, each redesign visibly heavier-built; no text
+**5-5 · Engineering rewrite · 3 render units (05-05a/b/c), 3s each · cut**
+- Keyframe A (05-05a): elevator cable drum, thickened cable winding — Motion: cable winds under load
+- Keyframe B (05-05b): construction crane boom, beefed-up lattice — Motion: boom rotates slowly with a heavy load
+- Keyframe C (05-05c): aircraft wing assembly, thicker spar — Motion: wing flexes under test load
 - Cue: "Elevator cables, crane booms, aircraft wings…"
 
 **5-6 · Generations · 9s · cut → SCENE 6**
@@ -262,15 +265,17 @@
 
 ## SCENE 6 — THE VERDICT [7:30] (shots 6-1 → 6-8)
 
-**6-1 · One-year montage · 12s (4 dissolves) · cut**
-- Keyframe A: heavier low sky over CITY; B: broader crowd crossing; C: squat skyline riverfront; D: riverfront gap where BRIDGE-OLD used to be
-- Motion: slow dissolves; the world is adapted, not destroyed
-- Cue: "A year later: the sky looks lower, the people broader…"
+**6-1 · One-year montage · 4 render units (06-01a/b/c/d), 3s each, slow dissolves · cut**
+- Keyframe A (06-01a): heavier low sky over CITY — Motion: slow dissolve-in, hold
+- Keyframe B (06-01b): broader crowd crossing — Motion: crowd flows, slow dissolve
+- Keyframe C (06-01c): squat skyline riverfront — Motion: slow dissolve, hold
+- Keyframe D (06-01d): riverfront gap where BRIDGE-OLD used to be — Motion: slow dissolve out
+- Cue: "A year later: the sky looks lower, the people broader, the cities squatter, the old bridges gone."
 
 **6-2 · Window match-cut · 7s · cut**
-- Keyframe: MAN at same window as 4-9, now a year later, posture adapted, olive jacket, warm light
+- Keyframe: MAN at same window as 4-9, now a year later, posture adapted, olive jacket, warm light — MUST be generated FROM the exact 4-9 keyframe, re-lit
 - Motion: match-cut static from 4-9 framing; he stands easily now
-- Cue: "Doubling gravity doesn't end the world."
+- Cue: "Catastrophe, then adaptation. Doubling gravity doesn't end the world."
 
 **6-3 · Bedroom return · 7s · cut**
 - Keyframe: BEDROOM continuity one year later, warm golden morning, shelf now reinforced with brackets, fan steady, calm
@@ -278,7 +283,7 @@
 - Cue: "But here's the creepiest part. It's not the weight."
 
 **6-4 · Flashback sting · 5s · cut**
-- Keyframe: BEDROOM continuity, macro clock flipping 12:00, amber glow, deep shadow, same as 1-5 framing
+- Keyframe: BEDROOM continuity, macro clock flipping 12:00, amber glow, deep shadow, same as 1-5 framing — reuse the exact 1-5 keyframe
 - Motion: quick cut-in; digits flip; a strained breath echoes; hard out
 - Cue: "Tonight, at midnight, you'd fight it."
 
@@ -297,7 +302,6 @@
 - Motion: static hold; fan steady; light moves imperceptibly; room breathes
 - Cue: "It's what the world quietly does to survive it."
 
-**6-8 · End card · 5s · hold to black**
-- Keyframe: black stage, fine grain, elegant thin serif "WHAT IF?" centered, faint amber glow
-- Motion: end card fades up, holds 3s, fades to black; music resolves and decays
+**6-8 · End card · 5s · hold to black — FFmpeg drawtext, no generated clip**
+- Render: black stage, fine grain, elegant thin serif "WHAT IF?" centered, faint amber glow; fades up, holds 3s, fades to black; music resolves and decays
 - Cue: (narration ends before end card)
