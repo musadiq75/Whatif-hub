@@ -1,26 +1,30 @@
-# VIDEO 1 — ASSET SPLIT (rev 2 — counts corrected)
+# VIDEO 1 — ASSET SPLIT (rev 3 — naming standardized)
 
-## Corrected counts (PR #2 review correction 5)
+## Corrected counts
 
 | Asset class | Count | Source of truth |
 |---|---|---|
-| Render units (video clips) | **61** (43 shot rows, with 1-7→3, 2-6→2, 5-5→3, 6-1→4) | `07-PRE-RENDER-CHECKLIST.md` manifest |
-| Keyframe images | **59** (all units except 01-01 and 06-08, which are FFmpeg drawtext cards) | `07-PRE-RENDER-CHECKLIST.md` manifest |
-| Music tracks | 6 | `04-ASSEMBLY-RUNBOOK.md` Step 6a |
-| SFX files | 27 | §7 cue table / `07` §A |
+| Render units (clips) | **61** (59 generated + 2 FFmpeg text cards) | `07-PRE-RENDER-CHECKLIST.md` manifest |
+| Generated footage files | **59** | `07` §A |
+| Keyframe images | **59** | `07` §A |
+| Caption cues | **94** (no end-card cue; last cue ends at last spoken word) | runbook Step 2 |
+| Music tracks | 6 | runbook Step 6a |
+| SFX files | 27 | §7 cue table |
+
+**Naming standard (rev 3):** multi-part units are `01-07a/b/c`, `02-06a/b`, `05-05a/b/c`, `06-01a/b/c/d` — the earlier `06-1b/c/d` forms were inconsistent and are corrected everywhere (manifest, CSV, prompts, this file).
 
 ## The rule, stated plainly
 
-- My image tool can generate cinematic stills matching the style bible (verified with the Scene 1 keyframe test) — **but free-tier outputs are watermarked**, and the project rule forbids watermarked images as final YouTube assets. Therefore ALL 59 final keyframes and ALL 61 motion clips must come from external unbranded sources (`05-TOOLING.md` — realistically Google Flow/Veo, the only verified free tier that is unbranded + commercial-safe).
+- My image tool can generate cinematic stills matching the style bible (verified with the Scene 1 keyframe test) — **but free-tier outputs are watermarked**, and the project rule forbids watermarked images as final YouTube assets. Therefore ALL 59 final keyframes and ALL 59 motion clips must come from external unbranded sources (`05-TOOLING.md` — realistically Google Flow/Veo, the only verified free tier that is unbranded + commercial-safe).
 - My stills serve exactly two purposes: (1) **style pre-flight / continuity validation** before spending external generation credits, and (2) reference images for providers that accept uploaded keyframes (only if unbranded — mine are not, so external keyframes are preferred).
 
 ## Shot-by-shot table
 
-`EXT-KEY` = external keyframe (free Gemini/Imagen or Flux) then external image-to-video (Veo/PixVerse, per `05-TOOLING.md`). `REF` = optional AshnaAI style-pre-flight still first. Multi-part shots expand to individual units with letter suffixes (01-07a/b/c etc.) — clip files must be named accordingly.
+`EXT-KEY` = external keyframe (free Gemini/Imagen or Flux) then external image-to-video (Veo/PixVerse, per `05-TOOLING.md`). `REF` = optional AshnaAI style-pre-flight still first.
 
 | Shot(s) | Final asset path | AshnaAI still useful? |
 |---|---|---|
-| 1-1 title card | FFmpeg drawtext on black (no keyframe) | No |
+| 1-1 title card | FFmpeg drawtext (runbook 3.5), no keyframe | No |
 | 1-2 street | EXT-KEY | Optional REF |
 | 1-3 bedroom wide | EXT-KEY | REF strongly recommended (bedroom layout continuity) |
 | 1-4 mattress CU | EXT-KEY | REF recommended |
@@ -72,7 +76,7 @@
 | 6-5 ordinary morning | EXT-KEY | REF strongly recommended |
 | 6-6 feet + clock 7:02 | EXT-KEY | REF recommended (clock continuity) |
 | 6-7 empty room | EXT-KEY | REF strongly recommended |
-| 6-8 end card | FFmpeg drawtext on black (no keyframe) | No |
+| 6-8 end card | FFmpeg drawtext (runbook 3.5), no keyframe | No |
 
 ## Continuity-critical reuse rules (the three hard ones)
 
