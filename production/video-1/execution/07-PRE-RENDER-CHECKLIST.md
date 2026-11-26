@@ -1,23 +1,24 @@
-# VIDEO 1 — PRE-RENDER CHECKLIST & COMPLETE ASSET MANIFEST (new, rev 2)
+# VIDEO 1 — PRE-RENDER CHECKLIST & COMPLETE ASSET MANIFEST (rev 3)
 
-**Why this exists (PR #2 review corrections 5 + 6):** the original package said "43 shots" — that counts *shot rows*, not render units. Multi-part shots expand: 1-7 → 3 clips, 2-6 → 2, 5-5 → 3, 6-1 → 4. **The true render-unit count is 61.** This file is the single source of truth for asset counts and must be passed BEFORE assembly begins.
+**Rev 3 corrections (second review):** (1) naming fixed everywhere to `06-01a/b/c/d` (the earlier `06-1b/c/d` inconsistency is corrected in this file, `01-SHOT-PROMPTS.md`, and `06-ASSET-SPLIT.md`); (2) the title card is cue `<title_card>` starting at 0.000 — the first narration shot (01-02) starts at the actual first-word timestamp; (3) caption count corrected to 94 cues, final cue ends at the last spoken word, end card carries no caption; (4) the timeline script (runbook Step 2) now enforces chronological matching, ambiguity detection, timestamp validation, and pinned first/last boundaries.
 
 ## A. Corrected counts
 
 | Asset class | Count | Notes |
 |---|---|---|
-| Render units (video clips) | **61** | See manifest below |
-| Keyframe images | **59** | All units except 01-01 and 06-08 (FFmpeg text cards) |
+| Render units (clips) | **61** | 59 generated + 2 FFmpeg text cards (01-01, 06-08) |
+| Generated footage files in `clips/` | **59** | All units except the two cards |
+| Keyframe images | **59** | Same 59 units (cards are drawtext) |
 | Narration file | 1 | `audio/narration.wav` |
-| Music tracks | 6 | `s1.mp3`–`s6.mp3`, one per scene mood |
-| SFX files | 27 | Named per §7 cue table (clock tick, mattress creak, strained breath, distant dog, fabric strain, footfall thuds, cane clatter, fan squeak, wing flaps, jet cruise, touchdown roar, tire screech, bridge groan, crack tick, crowd footsteps, heartbeat, cockpit strain mic, centrifuge whirr, scan pings, effort grunts, rain impact, seawall detonation, branch shear, construction ticks, feet on floor, fan hum, final clock tick) |
-| Caption file | 1 | SRT regenerated from WhisperX (runbook 2b) |
+| Music tracks | 6 | `s1.mp3`–`s6.mp3` |
+| SFX files | 27 | Per §7 cue table |
+| Caption cues | **94** | Text locked; timings regenerated from WhisperX + delay offset; no cue beyond video duration; end card uncaptioned |
 
 ## B. Complete render-unit manifest (61 units, timeline order)
 
-Cue = the narration words where each unit begins (drives `timeline_cues.csv` for the runbook Step 2 timeline script). Min-dur = minimum pacing duration from `01-SHOT-PROMPTS.md`; actual duration = span to the next unit's cue in the real narration.
+Cue = narration words where the unit begins (drives `timeline_cues.csv`). Min-dur = minimum pacing; actual duration = span to the next unit's cue in the real narration.
 
-**Scene 1:** 01-01 `<narration_start>` 6.0s · 01-02 `at midnight tonight` 7s · 01-03 `no announcement` 6s · 01-04 `the only evidence is you` 8s · 01-05 `you weigh a hundred and eighty` 9s · 01-06 `you haven't gained a single gram` 8s · 01-07a `for every rock` 3s · 01-07b `and bridge` 3s · 01-07c `and bird` 3s · 01-08 `here's what the next forty-eight` 7s
+**Scene 1:** 01-01 `<title_card>` 6.0s (starts at 0.000) · 01-02 `at midnight tonight` 7s (starts at actual first-word time) · 01-03 `no announcement` 6s · 01-04 `the only evidence is you` 8s · 01-05 `you weigh a hundred and eighty` 9s · 01-06 `you haven't gained a single gram` 8s · 01-07a `for every rock` 3s · 01-07b `and bridge` 3s · 01-07c `and bird` 3s · 01-08 `here's what the next forty-eight` 7s
 
 **Scene 2:** 02-01 `the first thing you notice` 8s · 02-02 `standing up, your heart` 7s · 02-03 `by mid-morning` 6s · 02-04 `you're not heavier` 7s · 02-05 `the stairs are a mountain` 7s · 02-06a `and you're one of the lucky ones` 4s · 02-06b `an elderly parent` 4s · 02-07 `for a small, quiet share` 6s · 02-08 `your bedroom, meanwhile` 8s · 02-09 `it's the last straw` 5s
 
@@ -27,13 +28,13 @@ Cue = the narration words where each unit begins (drives `timeline_cues.csv` for
 
 **Scene 5:** 05-01 `raindrops hit harder` 8s · 05-02 `waves carry double` 7s · 05-03 `forests start shedding` 8s · 05-04 `architecture gets rebuilt` 9s · 05-05a `elevator cables` 3s · 05-05b `crane booms` 3s · 05-05c `aircraft wings` 3s · 05-06 `and over generations` 9s
 
-**Scene 6:** 06-01a `a year later` 3s · 06-1b `the people broader` 3s · 06-1c `the cities squatter` 3s · 06-1d `the old bridges gone` 3s · 06-02 `catastrophe, then adaptation` 7s · 06-03 `but here's the creepiest part` 7s · 06-04 `tonight, at midnight` 5s · 06-05 `and then, one ordinary morning` 10s · 06-06 `and carry three hundred and sixty` 7s · 06-07 `it's what the world quietly` 8s · 06-08 `<narration_end>` 5s
+**Scene 6:** 06-01a `a year later` 3s · 06-01b `the people broader` 3s · 06-01c `the cities squatter` 3s · 06-01d `the old bridges gone` 3s · 06-02 `catastrophe, then adaptation` 7s · 06-03 `but here's the creepiest part` 7s · 06-04 `tonight, at midnight` 5s · 06-05 `and then, one ordinary morning` 10s · 06-06 `and carry three hundred and sixty` 7s · 06-07 `it's what the world quietly` 8s · 06-08 `<narration_end>` 5s
 
 ### timeline_cues.csv (extract verbatim to `video1/timeline_cues.csv`)
 
 ```csv
 unit,cue,min_dur
-01-01,<narration_start>,6.0
+01-01,<title_card>,6.0
 01-02,at midnight tonight,7
 01-03,no announcement,6
 01-04,the only evidence is you,8
@@ -95,43 +96,42 @@ unit,cue,min_dur
 06-07,it's what the world quietly,8
 06-08,<narration_end>,5
 ```
-(Commas removed from cue phrases for CSV safety; the timeline script matches on words, punctuation-insensitive.)
 
-## C. Pre-render existence checks (run BEFORE Step 3 of the runbook)
+## C. Pre-render existence checks (run BEFORE runbook Step 3)
 
 ```bash
 cd video1
-# 1. All 61 clips present, non-empty
+# 1. All 59 generated clips present, non-empty
 python3 - <<'EOF'
 import csv, os
-rows = list(csv.DictReader(open("timeline_cues.csv")))
+rows = [r for r in csv.DictReader(open("timeline_cues.csv"))
+        if r["unit"] not in ("01-01", "06-08")]
 missing = [r["unit"] for r in rows
            if not (os.path.exists(f"clips/{r['unit']}.mp4") and os.path.getsize(f"clips/{r['unit']}.mp4") > 10000)]
-print(f"clips: {len(rows)-len(missing)}/61 present")
+print(f"generated clips: {len(rows)-len(missing)}/59 present")
 assert not missing, f"MISSING: {missing}"
+# 2. Resolution gate (runbook 3a): no clip below 960x540; below 1080p requires a waiver entry
 EOF
-# 2. Narration + timing artifacts
+# 3. Narration + timing artifacts
 test -s audio/narration.wav && echo OK narration
 test -s work/narration_vo.wav && echo OK narration_vo
 test -s work/timeline.csv && echo OK timeline
-# 3. Music: 6 tracks
+# 4. Music: 6 tracks; SFX: 27 files
 ls audio/music/ | grep -c ".mp3"   # expect 6
-# 4. SFX: 27 files
 ls audio/sfx/ | grep -c ".wav"    # expect >= 27
 ```
 
-## D. Pre-render checklist (sign off every line before assembly)
+## D. Pre-render sign-off checklist
 
-- [ ] 61/61 clips exist, each ≥10 KB, each ≥ its min-dur (ffprobe), each watermark-free (eyeball every clip — reject + regenerate any with a provider mark)
-- [ ] 59/59 keyframes exist in `refs/` (not strictly required at assembly, but confirm the 3 continuity rules: 6-2 derived from 4-9 keyframe; 6-4 reuses 1-5 keyframe; single master bedroom keyframe family for 1-3/2-1/2-8/4-7/6-3/6-5/6-7)
-- [ ] Narration word-for-word identical to `02-NARRATION-TTS.md` (transcript diff = zero changes)
-- [ ] `timeline.csv` built from WhisperX real timestamps (not scaled estimates)
-- [ ] Captions regenerated from the same WhisperX pass; cue text verbatim
-- [ ] 6 music tracks licensed for monetized YouTube (YouTube Audio Library / Pixabay)
-- [ ] 27 SFX files present, licenses checked (CC0 preferred)
-- [ ] All clips 16:9, ≥720p native (no upscaling needed), 23.976-compatible
-- [ ] Scene 5 clips carry the speculation treatment (no confident-claim framing)
-- [ ] Title/end cards ready as FFmpeg drawtext (01-01, 06-08) — no keyframe needed
-- [ ] Disk space ≥ 20 GB free for work/ and out/
+- [ ] 59/59 generated clips exist, each ≥10 KB, ≥ its min-dur after timing, **watermark-free** (eyeball every one; reject + regenerate any with a provider mark)
+- [ ] Resolution gate passed (runbook 3a): all ≥1080p native, or every sub-1080p clip listed in `work/resolution_waivers.csv` with reason and ≥960×540
+- [ ] 59/59 keyframes in `refs/`; three continuity rules hold (6-2 derived from 4-9; 6-4 reuses 1-5; master bedroom keyframe family for 1-3/2-1/2-8/4-7/6-3/6-5/6-7)
+- [ ] Narration word-for-word identical to `02-NARRATION-TTS.md` (transcript diff = zero)
+- [ ] `timeline.csv` from WhisperX via runbook Step 2 script (chronological, validated; title card at 0.000; 01-02 at first-word time; last unit at `<narration_end>`)
+- [ ] Captions: 94 cues regenerated from the same pass; verbatim text; last cue ends at last-word end; end card uncaptioned
+- [ ] 6 music tracks monetization-safe (YouTube Audio Library / Pixabay)
+- [ ] 27 SFX present, licenses checked
+- [ ] Title/end cards render via runbook Step 3.5 commands (fonts available)
+- [ ] Disk ≥ 20 GB free
 
-**Assembly (runbook Step 3) may begin only when every box above is checked.**
+**Assembly (runbook Step 3b onward) may begin only when every box above is checked.**
