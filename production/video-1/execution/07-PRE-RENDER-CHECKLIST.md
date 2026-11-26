@@ -1,6 +1,6 @@
-# VIDEO 1 — PRE-RENDER CHECKLIST & COMPLETE ASSET MANIFEST (rev 3)
+# VIDEO 1 — PRE-RENDER CHECKLIST & COMPLETE ASSET MANIFEST (rev 4)
 
-**Rev 3 corrections (second review):** (1) naming fixed everywhere to `06-01a/b/c/d` (the earlier `06-1b/c/d` inconsistency is corrected in this file, `01-SHOT-PROMPTS.md`, and `06-ASSET-SPLIT.md`); (2) the title card is cue `<title_card>` starting at 0.000 — the first narration shot (01-02) starts at the actual first-word timestamp; (3) caption count corrected to 94 cues, final cue ends at the last spoken word, end card carries no caption; (4) the timeline script (runbook Step 2) now enforces chronological matching, ambiguity detection, timestamp validation, and pinned first/last boundaries.
+**Rev 4 (third review):** the timeline is now in the **canonical ABSOLUTE video timebase** — `build_timeline.py` applies the delay internally and writes absolute values (title 0.000→6.000; first narration word at 6.000; end card at narration end; TOTAL = narration end + 5s). Music spans, SFX times, captions, and concat verification all consume `timeline.csv` absolute values with zero conversion. The committed `03-CAPTIONS.srt` is now explicitly a **provisional text/structure template** (timings are planning estimates; uploadable file is `work/captions_final.srt`).
 
 ## A. Corrected counts
 
@@ -8,17 +8,17 @@
 |---|---|---|
 | Render units (clips) | **61** | 59 generated + 2 FFmpeg text cards (01-01, 06-08) |
 | Generated footage files in `clips/` | **59** | All units except the two cards |
-| Keyframe images | **59** | Same 59 units (cards are drawtext) |
+| Keyframe images | **59** | Same 59 units |
 | Narration file | 1 | `audio/narration.wav` |
-| Music tracks | 6 | `s1.mp3`–`s6.mp3` |
-| SFX files | 27 | Per §7 cue table |
-| Caption cues | **94** | Text locked; timings regenerated from WhisperX + delay offset; no cue beyond video duration; end card uncaptioned |
+| Music tracks | 6 | `s1.mp3`–`s6.mp3`, looped to computed spans, full coverage 0 → TOTAL |
+| SFX files | 27 | Per §7 cue table, placed at absolute timeline times |
+| Caption cues | **94** | Provisional `03-CAPTIONS.srt` = template; uploadable = `work/captions_final.srt` (audio-verified) |
 
-## B. Complete render-unit manifest (61 units, timeline order)
+## B. Complete render-unit manifest (61 units, timeline order — ABSOLUTE timebase)
 
-Cue = narration words where the unit begins (drives `timeline_cues.csv`). Min-dur = minimum pacing; actual duration = span to the next unit's cue in the real narration.
+Cue = narration words where the unit begins. Min-dur = minimum pacing; actual duration = span to the next unit's cue in the real narration.
 
-**Scene 1:** 01-01 `<title_card>` 6.0s (starts at 0.000) · 01-02 `at midnight tonight` 7s (starts at actual first-word time) · 01-03 `no announcement` 6s · 01-04 `the only evidence is you` 8s · 01-05 `you weigh a hundred and eighty` 9s · 01-06 `you haven't gained a single gram` 8s · 01-07a `for every rock` 3s · 01-07b `and bridge` 3s · 01-07c `and bird` 3s · 01-08 `here's what the next forty-eight` 7s
+**Scene 1:** 01-01 `<title_card>` 6.0s (**starts 0.000**) · 01-02 `at midnight tonight` 7s (**starts 6.000 — actual first-word time**) · 01-03 `no announcement` 6s · 01-04 `the only evidence is you` 8s · 01-05 `you weigh a hundred and eighty` 9s · 01-06 `you haven't gained a single gram` 8s · 01-07a `for every rock` 3s · 01-07b `and bridge` 3s · 01-07c `and bird` 3s · 01-08 `here's what the next forty-eight` 7s
 
 **Scene 2:** 02-01 `the first thing you notice` 8s · 02-02 `standing up, your heart` 7s · 02-03 `by mid-morning` 6s · 02-04 `you're not heavier` 7s · 02-05 `the stairs are a mountain` 7s · 02-06a `and you're one of the lucky ones` 4s · 02-06b `an elderly parent` 4s · 02-07 `for a small, quiet share` 6s · 02-08 `your bedroom, meanwhile` 8s · 02-09 `it's the last straw` 5s
 
@@ -28,7 +28,7 @@ Cue = narration words where the unit begins (drives `timeline_cues.csv`). Min-du
 
 **Scene 5:** 05-01 `raindrops hit harder` 8s · 05-02 `waves carry double` 7s · 05-03 `forests start shedding` 8s · 05-04 `architecture gets rebuilt` 9s · 05-05a `elevator cables` 3s · 05-05b `crane booms` 3s · 05-05c `aircraft wings` 3s · 05-06 `and over generations` 9s
 
-**Scene 6:** 06-01a `a year later` 3s · 06-01b `the people broader` 3s · 06-01c `the cities squatter` 3s · 06-01d `the old bridges gone` 3s · 06-02 `catastrophe, then adaptation` 7s · 06-03 `but here's the creepiest part` 7s · 06-04 `tonight, at midnight` 5s · 06-05 `and then, one ordinary morning` 10s · 06-06 `and carry three hundred and sixty` 7s · 06-07 `it's what the world quietly` 8s · 06-08 `<narration_end>` 5s
+**Scene 6:** 06-01a `a year later` 3s · 06-01b `the people broader` 3s · 06-01c `the cities squatter` 3s · 06-01d `the old bridges gone` 3s · 06-02 `catastrophe, then adaptation` 7s · 06-03 `but here's the creepiest part` 7s · 06-04 `tonight, at midnight` 5s · 06-05 `and then, one ordinary morning` 10s · 06-06 `and carry three hundred and sixty` 7s · 06-07 `it's what the world quietly` 8s · 06-08 `<narration_end>` 5s (**starts at narration end — absolute**)
 
 ### timeline_cues.csv (extract verbatim to `video1/timeline_cues.csv`)
 
@@ -110,28 +110,30 @@ missing = [r["unit"] for r in rows
            if not (os.path.exists(f"clips/{r['unit']}.mp4") and os.path.getsize(f"clips/{r['unit']}.mp4") > 10000)]
 print(f"generated clips: {len(rows)-len(missing)}/59 present")
 assert not missing, f"MISSING: {missing}"
-# 2. Resolution gate (runbook 3a): no clip below 960x540; below 1080p requires a waiver entry
 EOF
-# 3. Narration + timing artifacts
-test -s audio/narration.wav && echo OK narration
+# 2. Timing artifacts (absolute timebase)
 test -s work/narration_vo.wav && echo OK narration_vo
 test -s work/timeline.csv && echo OK timeline
-# 4. Music: 6 tracks; SFX: 27 files
+python3 -c "import csv; r=list(csv.DictReader(open('work/timeline.csv'))); print('title start:', r[0]['start'], '(expect 0.000)'); print('first word unit:', r[1]['start'], '(expect 6.000)')"
+test -s work/captions_final.srt && echo OK captions_final || echo "WARNING: captions_final.srt not yet generated (runbook Step 2 gate)"
+# 3. Music: 6 tracks; SFX: 27 files
 ls audio/music/ | grep -c ".mp3"   # expect 6
 ls audio/sfx/ | grep -c ".wav"    # expect >= 27
+# 4. Font (runbook Step 3.5 discovery) resolves
+fc-list : file | head -n1
 ```
 
 ## D. Pre-render sign-off checklist
 
-- [ ] 59/59 generated clips exist, each ≥10 KB, ≥ its min-dur after timing, **watermark-free** (eyeball every one; reject + regenerate any with a provider mark)
-- [ ] Resolution gate passed (runbook 3a): all ≥1080p native, or every sub-1080p clip listed in `work/resolution_waivers.csv` with reason and ≥960×540
-- [ ] 59/59 keyframes in `refs/`; three continuity rules hold (6-2 derived from 4-9; 6-4 reuses 1-5; master bedroom keyframe family for 1-3/2-1/2-8/4-7/6-3/6-5/6-7)
-- [ ] Narration word-for-word identical to `02-NARRATION-TTS.md` (transcript diff = zero)
-- [ ] `timeline.csv` from WhisperX via runbook Step 2 script (chronological, validated; title card at 0.000; 01-02 at first-word time; last unit at `<narration_end>`)
-- [ ] Captions: 94 cues regenerated from the same pass; verbatim text; last cue ends at last-word end; end card uncaptioned
-- [ ] 6 music tracks monetization-safe (YouTube Audio Library / Pixabay)
-- [ ] 27 SFX present, licenses checked
-- [ ] Title/end cards render via runbook Step 3.5 commands (fonts available)
+- [ ] 59/59 generated clips exist, ≥10 KB, ≥ min-dur after timing, watermark-free
+- [ ] Resolution gate passed (all ≥1080p native, or waivers documented ≥960×540)
+- [ ] 59/59 keyframes in `refs/`; three continuity rules hold (6-2 from 4-9; 6-4 from 1-5; master bedroom family)
+- [ ] Narration word-for-word identical to `02-NARRATION-TTS.md`
+- [ ] `timeline.csv` is ABSOLUTE: title 0.000; 01-02 at 6.000; all units strictly increasing; last unit ends at narration end + 5s
+- [ ] `work/captions_final.srt` generated and passed the runbook Step-2 validation (94 cues, no overlap, last cue ≤ TOTAL) — **provisional `03-CAPTIONS.srt` NOT used for upload**
+- [ ] Music: 6 tracks selected, each long enough or loopable; spans to be COMPUTED by `tools/music_spans.py` (never hardcoded; no apad silence)
+- [ ] 27 SFX present, licenses checked; placement times to be taken from `timeline.csv` absolute values
+- [ ] Text cards: font discovery command resolves a TTF path on the render machine
 - [ ] Disk ≥ 20 GB free
 
-**Assembly (runbook Step 3b onward) may begin only when every box above is checked.**
+**Assembly may begin only when every box is checked.**
