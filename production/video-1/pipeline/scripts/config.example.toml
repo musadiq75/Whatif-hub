@@ -1,0 +1,33 @@
+# MoneyPrinterTurbo config example for Video 1 (free services only)
+
+# Copy to MoneyPrinterTurbo/config.toml if you use the WebUI instead of the CLI.
+# CLI usage (make_video.sh) does NOT require editing this file - the only key
+# needed for footage is set via the PEXELS_API_KEY environment variable, which
+# fetch_materials.py reads. Edge TTS needs no key at all.
+
+[app]
+video_source = "pexels"          # free; needs pexels_api_key below when used from WebUI
+subtitle_provider = "edge"       # subtitle timing from Edge TTS timestamps (free)
+# whisper_local is the offline fallback (no key): uncomment to use it
+# subtitle_provider = "whisper_local"
+
+[whisper]
+model = "base"
+
+[azure_tts]
+# NOT needed - Edge TTS is the default and requires no key or subscription.
+
+[pexels]
+# Only needed for WebUI usage; CLI fetcher reads PEXELS_API_KEY env var instead.
+api_key = ""
+
+[pixabay]
+api_key = ""
+
+[ui]
+voice_name = "en-US-AndrewMultilingualNeural"
+voice_rate = 0.92
+subtitle_enabled = true
+subtitle_position = "bottom"
+subtitle_display_mode = "sentence"
+font_size = 52
