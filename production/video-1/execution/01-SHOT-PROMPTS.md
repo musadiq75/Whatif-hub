@@ -1,8 +1,8 @@
-# VIDEO 1 — ALL SHOT PROMPTS (production-ready) — rev 2
+# VIDEO 1 — ALL SHOT PROMPTS (production-ready) — rev 3
 
-**How to use:** generate the KEYFRAME image first (prompt = Keyframe block), then run image-to-video with the Motion prompt. Every prompt already contains the full continuity payload. Durations are MINIMUM pacing targets; actual durations come from real WhisperX word timestamps (runbook Step 2 + `07-PRE-RENDER-CHECKLIST.md` cue table).
+**How to use:** generate the KEYFRAME image first (prompt = Keyframe block), then run image-to-video with the Motion prompt. Every prompt contains the full continuity payload. Durations are MINIMUM pacing targets; actual durations come from real WhisperX word timestamps (runbook Step 2 + `07-PRE-RENDER-CHECKLIST.md` cue table).
 
-**Corrected counts (rev 2):** 43 shot rows → **61 render units**. Multi-part shots produce lettered clip files: 1-7 → `01-07a/b/c.mp4`, 2-6 → `02-06a/b.mp4`, 5-5 → `05-05a/b/c.mp4`, 6-1 → `06-01a/b/c/d.mp4`. Title card (01-01) and end card (06-08) are FFmpeg drawtext, not generated clips. The authoritative manifest is `07-PRE-RENDER-CHECKLIST.md`.
+**Counts (rev 3):** 43 shot rows → **61 render units**. Multi-part shots produce lettered clip files: 1-7 → `01-07a/b/c.mp4`, 2-6 → `02-06a/b.mp4`, 5-5 → `05-05a/b/c.mp4`, 6-1 → `06-01a/b/c/d.mp4` (naming standardized — no `06-1b` forms anywhere). Title card (01-01) and end card (06-08) are FFmpeg drawtext (runbook Step 3.5). The authoritative manifest is `07-PRE-RENDER-CHECKLIST.md`.
 
 **STYLE CORE (baked into every prompt below):** cinematic photorealism with subtle 3D-render polish, 35mm anamorphic character, 2.39:1 letterbox, teal-shifted shadows, warm sodium-amber highlights, gentle film grain, volumetric light, shallow depth of field, no text, no logos, protagonist's face never visible.
 
@@ -19,9 +19,9 @@
 
 ## SCENE 1 — COLD OPEN [0:00] (shots 1-1 → 1-8)
 
-**1-1 · Title card · 6s · transition: cut — FFmpeg drawtext, no generated clip**
+**1-1 · Title card · 6s at 0.000 · transition: cut — FFmpeg drawtext (runbook 3.5), no generated clip**
 - Render: black stage, fine film grain; elegant thin serif title "WHAT IF GRAVITY DOUBLED AT MIDNIGHT?" centered, faint amber glow; slow 3% push-in; title fades up 1.5s, holds, fades out
-- Narration cue: (before narration starts)
+- Narration cue: (title occupies [0 → first narration word's actual timestamp])
 
 **1-2 · Street at midnight · 7s · cut**
 - Keyframe: dark suburban street, STYLE CORE + CONTINUITY: STREET, single lit bedroom window upper floor, sodium-amber streetlamp right, cold moonlight, volumetric haze
@@ -64,7 +64,7 @@
 ## SCENE 2 — THE FIRST MORNING [1:00] (shots 2-1 → 2-9)
 
 **2-1 · Straining to rise · 8s · cut**
-- Keyframe: BEDROOM at pale gray-blue dawn, MAN gripping bedframe, arms trembling, pushing to sit up, faceless 3-quarter rear
+- Keyframe: BEDROOM at pale gray-blue dawn, MAN gripping bedframe, arms trembling, pushing himself to sit up, faceless 3-quarter rear
 - Motion: slow dolly-in; arms shake under invisible load; he sits up in stages, breath audible
 - Cue: "The first thing you notice isn't the weight. It's the tiredness."
 
@@ -302,6 +302,6 @@
 - Motion: static hold; fan steady; light moves imperceptibly; room breathes
 - Cue: "It's what the world quietly does to survive it."
 
-**6-8 · End card · 5s · hold to black — FFmpeg drawtext, no generated clip**
+**6-8 · End card · 5s after last word · hold to black — FFmpeg drawtext (runbook 3.5), no generated clip**
 - Render: black stage, fine grain, elegant thin serif "WHAT IF?" centered, faint amber glow; fades up, holds 3s, fades to black; music resolves and decays
-- Cue: (narration ends before end card)
+- Cue: (narration ends before end card; unit starts at `<narration_end>` timestamp)
