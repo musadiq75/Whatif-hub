@@ -356,11 +356,11 @@ Architecture gets rebuilt lower, wider,
 thicker — in a single generation,
 
 77
-00:06:23,200 --> 00:06:27,000
+00:06:23,200 --> 00:06:25,500
 the skyline becomes a skyline of stumps.
 
 78
-00:06:27,200 --> 00:06:35,000
+00:06:25,700 --> 00:06:35,000
 Elevator cables, crane booms, aircraft wings:
 every engineering assumption on Earth
 quietly gets rewritten.
@@ -411,11 +411,11 @@ But here's the creepiest part.
 It's not the weight.
 
 89
-00:07:23,200 --> 00:07:27,500
+00:07:23,200 --> 00:07:26,500
 It's the forgetting.
 
 90
-00:07:29,500 --> 00:07:33,000
+00:07:29,000 --> 00:07:33,000
 Tonight, at midnight, you'd fight it.
 You'd curse it.
 
@@ -438,8 +438,3 @@ gravity isn't what it does to the world.
 94
 00:07:53,200 --> 00:08:00,000
 It's what the world quietly does to survive it.
-
-95
-00:08:00,200 --> 00:08:58,000
-[music resolves; end card "WHAT IF?" fades in and holds; fade to black]
-
