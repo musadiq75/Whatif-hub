@@ -1,0 +1,24 @@
+{
+  "video": "What If Gravity Doubled at Midnight?",
+  "version": "1.0",
+  "note": "43-shot storyboard condensed into 16 environments. 'terms' are Pexels/Pixabay video search terms. 'count' = clips to download for that environment (2-4 min each in practice). Concatenation order matters: make_video.sh passes clips in this file's order.",
+  "environments": [
+    {"id": "midnight_street", "terms": ["suburban street night moonlight", "empty street midnight lamp"], "count": 2, "orientation": "landscape"},
+    {"id": "midnight_bedroom", "terms": ["man sleeping bed night moonlight", "bedroom night clock lamp"], "count": 3, "orientation": "landscape"},
+    {"id": "dawn_bedroom", "terms": ["man waking up bed morning", "getting out of bed sunrise"], "count": 3, "orientation": "landscape"},
+    {"id": "stairs_effort", "terms": ["man walking stairs tired", "climbing stairs slow"], "count": 2, "orientation": "landscape"},
+    {"id": "elderly_struggle", "terms": ["elderly man walking cane", "old man hospital bed"], "count": 2, "orientation": "landscape"},
+    {"id": "commuters", "terms": ["crowd walking street slow motion", "pedestrians commuting city"], "count": 3, "orientation": "landscape"},
+    {"id": "sparrow", "terms": ["sparrow branch close up", "small bird flying low"], "count": 2, "orientation": "landscape"},
+    {"id": "airliner", "terms": ["airplane landing night runway", "airplane flying clouds close"], "count": 3, "orientation": "landscape"},
+    {"id": "cracked_runway", "terms": ["airport runway night lights", "damaged road cracks"], "count": 2, "orientation": "landscape"},
+    {"id": "traffic", "terms": ["car driving highway normal", "cars city street day"], "count": 2, "orientation": "landscape"},
+    {"id": "old_bridge", "terms": ["old truss bridge rust river", "bridge structure steel closeup"], "count": 3, "orientation": "landscape"},
+    {"id": "modern_bridge", "terms": ["cable stayed bridge pylons", "suspension bridge cables tension"], "count": 2, "orientation": "landscape"},
+    {"id": "body_strain", "terms": ["man standing tired silhouette", "back pain joints closeup"], "count": 3, "orientation": "landscape"},
+    {"id": "fighter_pilot", "terms": ["fighter jet cockpit pilot g-force", "jet aircraft flying fast"], "count": 2, "orientation": "landscape"},
+    {"id": "centrifuge", "terms": ["centrifuge laboratory spinning", "science lab equipment rotating"], "count": 2, "orientation": "landscape"},
+    {"id": "storm_city", "terms": ["heavy rain storm street flood", "waves crashing seawall storm", "forest wind branches storm", "city skyline timelapse clouds"], "count": 4, "orientation": "landscape"}
+  ],
+  "attribution_required": "Pexels/Pixabay license requires crediting sources when search results are shown; final video credits appended in README-PIPELINE.md"
+}
