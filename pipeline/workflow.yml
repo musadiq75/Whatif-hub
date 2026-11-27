@@ -1,0 +1,52 @@
+# COPY — to activate, place this content at .github/workflows/render.yml
+# on branch production/execution-package-video-1 (GitHub web UI: Add file > Create new file).
+# The AshnaAI GitHub connector is not permitted to write .github/ paths.
+name: video1-render
+on:
+  push:
+    branches: [production/execution-package-video-1]
+  workflow_dispatch:
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install FFmpeg and fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fontconfig fonts-dejavu-core
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install edge-tts
+        run: pip install --quiet edge-tts
+      - name: Prepare dirs
+        run: mkdir -p work out
+      - name: Generate narration
+        run: python3 pipeline/tts.py
+      - name: Audio cleanup and loudness
+        run: |
+          ffmpeg -y -i work/narration.mp3 -af "highpass=f=80,acompressor=threshold=-18dB:ratio=2:attack=20:release=250,alimiter=limit=-1.5dB" -ar 48000 -ac 1 work/narration_clean.wav
+          ffmpeg -y -i work/narration_clean.wav -af "loudnorm=I=-16:TP=-1.5:LRA=11" -ar 48000 -ac 1 work/narration_vo.wav
+      - name: Build timeline and captions
+        run: python3 pipeline/timeline.py
+      - name: Render visuals and grade
+        run: python3 pipeline/visuals.py
+      - name: Audio mix
+        run: python3 pipeline/audio.py
+      - name: Final export and QC
+        run: python3 pipeline/export.py
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: video1-render
+          path: |
+            out/video1_final.mp4
+            work/timeline.csv
+            work/captions_final.srt
+            work/words.json
+          retention-days: 30
+          if-no-files-found: error
